@@ -1,861 +1,658 @@
-# AI-Video-Assistant — Cinematic Knowledge from Audio & Video
+# 🎬 AI Video Assistant
 
 <p align="center">
-  <!-- Large animated hero banner: replace with real GIF under assets/ -->
-  <img alt="Hero banner" src="https://via.placeholder.com/1400x420.gif?text=Hero+Banner+-+Upload+%E2%86%92+Transcribe+%E2%86%92+Embed+%E2%86%92+Search" width="100%" />
+  <img src="assets/hero_banner.png" alt="AI Video Assistant Banner" width="100%" style="border-radius: 12px; border: 1px solid #2a2a3a; box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15); margin-bottom: 20px;" />
+</p>
+
+<p align="center">
+  <!-- Glowing Custom Badge Row -->
+  <a href="https://github.com/Ifrah27/AI-Video-Assistant/actions"><img src="https://img.shields.io/github/actions/workflow/status/Ifrah27/AI-Video-Assistant/ci.yml?branch=main&style=for-the-badge&logo=github&color=7c3aed&labelColor=111118" alt="build" /></a>
+  <a href="https://semver.org/"><img src="https://img.shields.io/badge/version-v1.0.0-06b6d4?style=for-the-badge&logo=semver&labelColor=111118" alt="version" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-7c3aed?style=for-the-badge&logo=mit&labelColor=111118" alt="license" /></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/stack-Python%20%7C%20Langchain%20%7C%20Chroma-06b6d4?style=for-the-badge&logo=python&labelColor=111118" alt="stack" /></a>
+  <a href="https://github.com/Ifrah27/AI-Video-Assistant/stargazers"><img src="https://img.shields.io/github/stars/Ifrah27/AI-Video-Assistant?style=for-the-badge&logo=github&color=7c3aed&labelColor=111118" alt="stars" /></a>
 </p>
 
 <div align="center">
-  <!-- Logo placeholder (SVG) -->
-  <img src="https://via.placeholder.com/160x160.svg?text=LOGO" alt="Project logo" width="120" height="120" />
-
-  <h2 style="margin-top:12px">Instantly search, quote, and summarize any video or audio</h2>
-
-  <!-- Badge row -->
-  <p>
-    <img alt="build" src="https://img.shields.io/badge/build-passing-brightgreen" />
-    <img alt="version" src="https://img.shields.io/badge/version-0.1.0-blue" />
-    <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey" />
-    <img alt="stack" src="https://img.shields.io/badge/stack-Python%20%7C%20Streamlit%20%7C%20Chroma-blue" />
-    <img alt="stars" src="https://img.shields.io/badge/stars-★%20Add%20yours-yellow" />
-  </p>
-
-  <p style="max-width:900px;margin:auto">
-    A production-grade platform that extracts machine-readable knowledge from audio and video — precise timestamping, dense semantic search, and succinct, source-cited summaries for teams and products.
+  <h3>⚡ Cinematic Knowledge Extraction & Interactive RAG for Video & Audio Meetings ⚡</h3>
+  <p style="max-width: 800px; color: #7070a0; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; line-height: 1.6;">
+    A production-grade intelligent pipeline that ingests long-form video/audio files or YouTube URLs, transcribes media locally with hardware-accelerated OpenAI Whisper, generates MapReduce bullet summaries, extracts action items and decisions via Groq inference, and indexes semantic segments in ChromaDB for instant, citation-grounded conversational Q&A.
   </p>
 </div>
 
-<!-- SVG wave divider -->
-<div style="line-height:0;margin-top:18px">
-  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" width="100%" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C300,80 900,-40 1200,40 L1200,60 L0,60 Z" fill="#f6f7fb"></path></svg>
-</div>
+<!-- Section Wave Divider -->
+<p align="center" style="margin-top: 40px; margin-bottom: 40px;">
+  <svg width="100%" height="60" viewBox="0 0 1200 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0 20C300 -10 600 50 900 20C1050 5 1150 0 1200 10V60H0V20Z" fill="url(#waveGrad)" opacity="0.15"/>
+    <path d="M0 35C300 10 600 60 900 35C1050 20 1150 15 1200 25V60H0V35Z" fill="url(#waveGrad)" opacity="0.35"/>
+    <path d="M0 50C300 25 600 70 900 50C1050 35 1150 30 1200 40V60H0V50Z" fill="url(#waveGrad)"/>
+    <defs>
+      <linearGradient id="waveGrad" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#7c3aed"/>
+        <stop offset="1" stop-color="#06b6d4"/>
+      </linearGradient>
+    </defs>
+  </svg>
+</p>
 
 ---
 
-<details>
-<summary style="font-size:16px;font-weight:600">Live Demo & Animated Features (click to expand)</summary>
+## ⚡ Core Architecture at a Glance
 
-<p style="margin-top:12px">Each GIF below is a short, looped demonstration of a core user flow. Replace the placeholders with high-fidelity GIFs in <code>assets/gifs/</code>.</p>
+The AI Video Assistant coordinates three primary pipelines to extract actionable knowledge from rich media sources.
 
-<div align="center">
-  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Upload+%E2%86%92+ASR+Progress" alt="upload demo" width="980" style="margin-bottom:12px" />
-  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Search+%E2%86%92+Timestamp+Play" alt="search demo" width="980" style="margin-bottom:12px" />
-  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Summarize+%E2%86%92+Cite+Timestamps" alt="summarize demo" width="980" />
-</div>
-
-</details>
-
----
-
-## Key flows — at a glance
-
-- Ingest (video/audio) → Media extraction → ASR → Chunking → Embedding → Vector index
-- Query → Dense retrieval → Re-ranking → Timestamp-aware snippet playback → Summarization with sources
-
-<!-- Section divider -->
-<svg viewBox="0 0 1200 40" preserveAspectRatio="none" width="100%" height="40"><path d="M0,20 C300,-20 900,60 1200,10 L1200,40 L0,40 Z" fill="#ffffff"></path></svg>
-
-## Problem we solve
-
-Large teams and products produce hours of video and audio that cannot be searched precisely. Existing tools surface clips poorly, lose timestamps, and provide no auditable source for summaries.
-
-```mermaid
-flowchart LR
-  A[Teams] --> B[Large Media Repositories]
-  B --> C[Manual Search / Playback]
-  C --> D[Slow Knowledge Extraction]
-  D --> E[Lost Context]
-  style C fill:#ffefef,stroke:#ff6b6b
-```
-
----
-
-## Ultra-Concise Solution Overview
-
-We provide a pluggable pipeline: robust media ingestion, configurable ASR, chunk-aware embedding, and a vector-backed retriever plus a source-aware summarizer. Everything is observable, auditable, and deployable.
-
-```mermaid
-flowchart LR
-  User[User/UI] --> Upload[Uploader]
-  Upload --> Extract[Audio Extractor]
-  Extract --> ASR[ASR Service]
-  ASR --> Chunk[Chunker]
-  Chunk --> Embed[Embedding Service]
-  Embed --> VectorDB[(Vector DB)]
-  Queryer[Query API] --> VectorDB
-  VectorDB --> Rescorer[Re-ranker]
-  Rescorer --> Summarizer[Summarizer]
-  Summarizer --> UI[UI - Timestamps + Snippets]
-```
-
----
-
-## Architecture (detailed)
-
-### System architecture (high level)
 ```mermaid
 graph TD
-  subgraph "Ingest"
-    Uploader --> Extractor
-    Extractor --> ASR
-  end
-  subgraph "Indexing"
-    ASR --> Chunker --> Embedder --> VectorDB
-  end
-  subgraph "Query"
-    Client --> API --> Retriever --> Re-ranker --> Summarizer
-    Summarizer --> Client
-  end
-  VectorDB -.-> MetadataDB
+    classDef default fill:#111118,stroke:#2a2a3a,color:#e8e8f0,font-family:'JetBrains Mono';
+    classDef highlight fill:#7c3aed,stroke:#9f67ff,color:#ffffff,font-family:'JetBrains Mono',font-weight:bold;
+    classDef secondary fill:#0a0a0f,stroke:#06b6d4,color:#06b6d4,font-family:'JetBrains Mono';
+    
+    A[YouTube URL / Local File] -->|1. Ingest| B(Audio Processor)
+    B -->|Convert & Chunk| C(WAV Audio Chunks)
+    C -->|2. Batch Transcription| D(Whisper Engine)
+    D -->|Raw Text Transcript| E(RAG Engine)
+    D -->|Full Transcript| F(Summarization & Extraction)
+    
+    F -->|MapReduce Chains| G[Bullet-point Summaries]
+    F -->|Groq Analyst Chains| H[Action Items / Key Decisions]
+    
+    E -->|ChromaDB Vector Store| I[(Vector DB)]
+    E -->|LangChain LCEL QA| J[User Chat Interface]
+    
+    class A,B,C default;
+    class D,I,J highlight;
+    class G,H,F secondary;
 ```
 
-### C4 container diagram
+---
+
+## 🚀 Key Features Grid
+
+<table width="100%" style="border-collapse: collapse; border: none; font-family: 'JetBrains Mono', monospace;">
+  <tr style="border: none;">
+    <td width="50%" style="padding: 20px; border: 1px solid #2a2a3a; background: #111118; vertical-align: top; border-radius: 8px;">
+      <p align="center">
+        <!-- Ingestion Icon -->
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </p>
+      <h4 align="center" style="color: #ffffff; margin-top: 10px; font-family: 'Syne', sans-serif;">Flexible Media Ingestion</h4>
+      <p style="color: #7070a0; font-size: 0.85rem; line-height: 1.5; margin-bottom: 0;">
+        Downloads YouTube videos on the fly utilizing <code>yt-dlp</code> or extracts audio from local files. Conforms sample rates to mono 16kHz WAV format using <code>pydub</code> to maximize Whisper output accuracy.
+      </p>
+    </td>
+    <td width="50%" style="padding: 20px; border: 1px solid #2a2a3a; background: #111118; vertical-align: top; border-radius: 8px;">
+      <p align="center">
+        <!-- Whisper ASR Icon -->
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 19v3M8 22h8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </p>
+      <h4 align="center" style="color: #ffffff; margin-top: 10px; font-family: 'Syne', sans-serif;">Local ASR Transcription</h4>
+      <p style="color: #7070a0; font-size: 0.85rem; line-height: 1.5; margin-bottom: 0;">
+        Performs fully local transcription utilizing OpenAI's Whisper model (configurable via <code>.env</code> from <code>tiny</code> to <code>large</code>). Audio splitting prevents GPU memory overflow on long sessions.
+      </p>
+    </td>
+  </tr>
+  <tr style="border: none;">
+    <td width="50%" style="padding: 20px; border: 1px solid #2a2a3a; background: #111118; vertical-align: top; border-radius: 8px;">
+      <p align="center">
+        <!-- Summarization Icon -->
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="14 2 14 8 20 8" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="13" x2="8" y2="13" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="17" x2="8" y2="17" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="10 9 9 9 8 9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </p>
+      <h4 align="center" style="color: #ffffff; margin-top: 10px; font-family: 'Syne', sans-serif;">MapReduce Summarization</h4>
+      <p style="color: #7070a0; font-size: 0.85rem; line-height: 1.5; margin-bottom: 0;">
+        Leverages Groq's high-speed inference cloud to run a multi-stage MapReduce summarization chain, enabling massive hours-long meetings to be condensed into structured, bulleted summaries without context window overflow.
+      </p>
+    </td>
+    <td width="50%" style="padding: 20px; border: 1px solid #2a2a3a; background: #111118; vertical-align: top; border-radius: 8px;">
+      <p align="center">
+        <!-- RAG Chat Icon -->
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </p>
+      <h4 align="center" style="color: #ffffff; margin-top: 10px; font-family: 'Syne', sans-serif;">Interactive RAG Engine</h4>
+      <p style="color: #7070a0; font-size: 0.85rem; line-height: 1.5; margin-bottom: 0;">
+        Indexes session text in ChromaDB with HuggingFace's <code>all-MiniLM-L6-v2</code> local embeddings. Supports interactive chat with conversational memory using LangChain LCEL and Groq's <code>llama-3.1-8b-instant</code>.
+      </p>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 📖 Interactive Live Demo & Experience
+
+<details>
+<summary style="font-size: 1.15rem; font-weight: bold; color: #06b6d4; cursor: pointer; padding: 10px; border: 1px solid #2a2a3a; border-radius: 6px; background: #111118; font-family: 'Syne', sans-serif;">
+  🎬 Click to expand stream session demo
+</summary>
+
+<div style="padding: 15px; background: #0a0a0f; border: 1px solid #2a2a3a; border-top: none; border-radius: 0 0 6px 6px;">
+  <p align="center" style="color: #7070a0; font-size: 0.85rem; font-family: 'JetBrains Mono', monospace;">
+    The dashboard features a live pipeline status tracker that lights up step-by-step as audio is processed, transcribed, and indexed.
+  </p>
+  <p align="center">
+    <img src="https://via.placeholder.com/900x480.gif?text=Demo+-+Step-by-Step+Analysis+%26+Live+RAG+Chat" alt="Live Streamlit Dashboard Demo" width="90%" style="border-radius: 6px; border: 1px solid #2a2a3a;" />
+  </p>
+  
+  <table width="100%" style="border-collapse: collapse; border: none; font-size: 0.8rem; font-family: 'JetBrains Mono'; margin-top: 15px;">
+    <tr>
+      <td width="33%" align="center" style="border: 1px solid #2a2a3a; padding: 10px; background: #111118;">
+        <img src="https://via.placeholder.com/300x180.png?text=1.+Ingest+%26+Pipeline+Sidebar" alt="Sidebar View" width="100%" /><br/>
+        <strong>1. Ingestion Control</strong>
+      </td>
+      <td width="33%" align="center" style="border: 1px solid #2a2a3a; padding: 10px; background: #111118;">
+        <img src="https://via.placeholder.com/300x180.png?text=2.+Dashboard+Summary+Cards" alt="Summary Cards" width="100%" /><br/>
+        <strong>2. Structured Extraction</strong>
+      </td>
+      <td width="33%" align="center" style="border: 1px solid #2a2a3a; padding: 10px; background: #111118;">
+        <img src="https://via.placeholder.com/300x180.png?text=3.+RAG+Chat+Interface" alt="Chat UI" width="100%" /><br/>
+        <strong>3. Contextual Chat</strong>
+      </td>
+    </tr>
+  </table>
+</div>
+</details>
+
+<!-- Section Wave Divider -->
+<p align="center" style="margin-top: 40px; margin-bottom: 40px;">
+  <svg width="100%" height="60" viewBox="0 0 1200 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M1200 30C900 60 600 0 300 30C150 45 50 50 0 40V0H1200V30Z" fill="url(#waveGrad)" opacity="0.15"/>
+    <path d="M1200 15C900 40 600 0 300 15C150 25 50 30 0 20V0H1200V15Z" fill="url(#waveGrad)" opacity="0.35"/>
+    <path d="M1200 0C900 20 600 0 300 0C150 0 50 0 0 0V0H1200V0Z" fill="url(#waveGrad)"/>
+  </svg>
+</p>
+
+---
+
+## 🛠️ Detailed Technical Architecture Diagrams
+
+These detailed systems diagrams outline the design of the AI Video Assistant's processing layers, containers, data flows, and build deployments.
+
+### 1. C4 Container Diagram (Level 2)
+Describes the software boundaries, system APIs, vector indices, and third-party models involved in the execution environment.
+
 ```mermaid
-flowchart LR
-  subgraph Frontend
-    FE[Streamlit / React]
-  end
-  subgraph Backend
-    API[FastAPI]
-    Worker[Worker Pool - Celery/RQ]
-    ASR[ASR Service]
-    Embed[Embedding Service]
-    Vector[(Chroma / Milvus)]
-    Meta[(Postgres)]
-  end
-  FE --> API
-  API --> Worker
-  Worker --> ASR
-  Worker --> Embed
-  Embed --> Vector
-  API --> Vector
-  API --> Meta
+graph TB
+    classDef default fill:#111118,stroke:#2a2a3a,color:#e8e8f0,font-family:'JetBrains Mono';
+    classDef highlight fill:#7c3aed,stroke:#9f67ff,color:#ffffff,font-family:'JetBrains Mono',font-weight:bold;
+    classDef ext fill:#111118,stroke:#06b6d4,color:#06b6d4,font-family:'JetBrains Mono';
+
+    subgraph Boundaries [AI Video Assistant System Environment]
+        UI[Streamlit Front-End\nContainer\nPython / custom HTML-CSS]
+        CLI[Command-Line Interface\nContainer\nmain.py entrypoint]
+        
+        subgraph Python Core Pipeline
+            AP[Audio Processor Component\nyt-dlp / pydub]
+            TR[Transcriber Core Engine\nLocal Whisper loader]
+            SE[Summarizer & Analyst Engine\nLangChain MapReduce]
+            RE[RAG Q&A Engine\nLangChain LCEL]
+        end
+        
+        VS[(Chroma Vector DB\nSQLite-backed volume)]
+    end
+    
+    User([Meeting Host]) -->|Ingests, monitors, queries| UI
+    Developer([Software Engineer]) -->|CLI execution / tests| CLI
+    
+    UI -->|Initiates run| AP
+    CLI -->|Initiates run| AP
+    
+    AP -->|Mono WAV temporary paths| TR
+    TR -->|Supplies full transcript| SE
+    TR -->|Supplies full transcript| RE
+    
+    SE -->|Llama-3.1 context prompts| Groq[Groq API Cloud\nllama-3.1-8b-instant]
+    RE -->|Similarity search context| VS
+    RE -->|Llama-3.1 prompt variables| Groq
+    
+    class UI,CLI,AP,TR,SE,RE default;
+    class VS highlight;
+    class Groq ext;
 ```
 
-### Sequence: upload -> index
+---
+
+### 2. Execution Sequence Diagram: Ingestion to Indexing
+Demonstrates the sequence of events that take place when a user triggers media ingestion.
+
 ```mermaid
 sequenceDiagram
-  participant U as User
-  participant API
-  participant W as Worker
-  participant ASR
-  participant E as Embed
-  participant V as VectorDB
+    autonumber
+    actor User as Meeting Host
+    participant UI as Streamlit UI / CLI
+    participant AP as Audio Processor
+    participant TR as Transcriber (Whisper)
+    participant VS as Vector Store (Chroma)
+    participant RE as RAG Engine (LangChain)
 
-  U->>API: POST /upload (media)
-  API->>W: enqueue job
-  W->>ASR: transcribe(audio)
-  ASR-->>W: transcript
-  W->>E: embed(chunks)
-  E->>V: index(embeddings)
-  V-->>W: ack
-  W-->>API: job done
-  API-->>U: job complete
+    User->>UI: Enter Source (YouTube Link / Local Path)
+    UI->>AP: process_input(source)
+    Note over AP: Check if URL or local file
+    alt is YouTube URL
+        AP->>AP: download_youtube_audio() using yt-dlp
+    else is Local Path
+        AP->>AP: convert_to_wav() using pydub
+    end
+    Note over AP: Downsample audio to mono 16kHz WAV
+    AP->>AP: chunk_audio() into 10-min files
+    AP-->>UI: Return list of wav chunk filepaths
+    
+    UI->>TR: transcribe_all(chunks)
+    loop For each audio chunk
+        TR->>TR: Load Whisper model (CPU/GPU)
+        TR->>TR: Run local transcription
+    end
+    TR-->>UI: Reassembled full transcript string
+    
+    UI->>RE: build_rag_chain(transcript)
+    RE->>VS: build_vector_store(transcript)
+    Note over VS: Split transcript into 500-char segments<br/>(overlap = 50 chars)
+    VS->>VS: Generate local embeddings (all-MiniLM-L6-v2)
+    VS->>VS: Index and persist in vector_db/
+    VS-->>RE: Return Chroma store reference
+    RE-->>UI: Return initialized LangChain RAG Chain
 ```
 
-### ER diagram (metadata)
+---
+
+### 3. Entity-Relationship (ER) Metadata Schema
+Defines the relational storage structure and metadata relationships managed by the assistant.
+
 ```mermaid
 erDiagram
-  USERS {
-    string id PK
-    string name
-    string email
-  }
-  MEDIA {
-    string id PK
-    string title
-    datetime uploaded_at
-  }
-  TRANSCRIPTS {
-    string id PK
-    string media_id FK
-    text body
-  }
-  EMBEDDINGS {
-    string id PK
-    string transcript_id FK
-    float[] vector
-  }
-  USERS ||--o{ MEDIA : uploads
-  MEDIA ||--o{ TRANSCRIPTS : contains
-  TRANSCRIPTS ||--o{ EMBEDDINGS : stores
+    MEDIA {
+        string source_url PK "Primary source location"
+        string format "WAV / MP4 / MP3"
+        int duration_seconds "Total media length in seconds"
+        datetime processed_at "Timestamp of analysis execution"
+    }
+    AUDIO_CHUNKS {
+        string chunk_id PK "UUID"
+        string source_url FK "Refers to MEDIA source_url"
+        string file_path "Local audio path on disk"
+        int sequence_index "Sequential chunk ordering"
+    }
+    TRANSCRIPTS {
+        string transcript_id PK "UUID"
+        string source_url FK "Refers to MEDIA source_url"
+        text full_text "Reassembled transcript text"
+        string detected_language "English / Hinglish"
+    }
+    VECTOR_EMBEDDINGS {
+        string document_id PK "UUID"
+        string transcript_id FK "Refers to TRANSCRIPTS transcript_id"
+        text chunk_content "Splitted token block text"
+        float_array vector "384-dimension all-MiniLM-L6-v2 float vector"
+        int chunk_index "Index position within sequence"
+    }
+
+    MEDIA ||--o{ AUDIO_CHUNKS : "splits into"
+    MEDIA ||--|| TRANSCRIPTS : "maps to"
+    TRANSCRIPTS ||--o{ VECTOR_EMBEDDINGS : "embeds to"
 ```
 
-### Deployment diagram
+---
+
+### 4. Deployment & Cloud Topology
+Demonstrates a production-grade Kubernetes-based cluster deployment of the Video Assistant.
+
 ```mermaid
-flowchart LR
-  GitHub --> CI[GitHub Actions]
-  CI --> Registry[Container Registry]
-  Registry --> K8s[Kubernetes Cluster]
-  K8s --> LB[Load Balancer]
-  LB --> Web[Web Frontend]
-  LB --> API[API Pods]
-  API --> Workers[Worker Pods]
-  Workers --> VectorDB[(Managed Vector DB)]
-  Workers --> Blob[(S3/Azure Blob)]
+graph TD
+    classDef box fill:#111118,stroke:#2a2a3a,color:#e8e8f0,font-family:'JetBrains Mono';
+    classDef edge fill:#7c3aed,stroke:#9f67ff,color:#ffffff,font-family:'JetBrains Mono',font-weight:bold;
+
+    subgraph Ingress [User Access]
+        Browser[Client Browser]
+    end
+
+    subgraph K8s [Kubernetes Production Cluster]
+        direction TB
+        LB[Load Balancer]
+        
+        subgraph PodPool [Autoscaled Pod Pool]
+            UI_Pod[Streamlit UI Pods]
+            Worker_Pod[Processing Workers]
+        end
+
+        subgraph PV [Persistent Storage Volumes]
+            Chroma_Vol[(Chroma DB SQLite PV)]
+            Cache_Vol[(Model Cache PV\nWhisper models)]
+        end
+    end
+
+    subgraph APIs [Cloud Interfaces]
+        GroqCloud[Groq Cloud API\nLlama-3.1 Inference]
+        YT_Srv[YouTube CDN / Storage]
+    end
+
+    Browser -->|HTTPS / WSS| LB
+    LB -->|Route traffic| UI_Pod
+    UI_Pod -->|Offload heavy execution| Worker_Pod
+    Worker_Pod -->|Fetch stream data| YT_Srv
+    Worker_Pod -->|Cache weights| Cache_Vol
+    Worker_Pod -->|Persist DB records| Chroma_Vol
+    Worker_Pod -->|Send system prompts| GroqCloud
+    UI_Pod -->|Read embeddings| Chroma_Vol
+    UI_Pod -->|Engage chat completion| GroqCloud
+
+    class Browser,LB,UI_Pod,Worker_Pod box;
+    class Chroma_Vol,Cache_Vol,GroqCloud,YT_Srv edge;
 ```
 
-### Auth flow
+---
+
+### 5. JWT & OAuth authentication flow
+Highlights the flow for securing the frontend and verifying user API actions.
+
 ```mermaid
 sequenceDiagram
-  participant Browser
-  participant Auth[Auth Server]
-  participant API
-  Browser->>Auth: OAuth login
-  Auth-->>Browser: JWT
-  Browser->>API: Bearer JWT
-  API->>Auth: validate
+    autonumber
+    actor User as Client Browser
+    participant Auth as Identity Provider (OIDC / OAuth)
+    participant UI as Streamlit / API Gateway
+    participant Backend as Backend Core Service
+
+    User->>UI: Attempt to access dashboard
+    UI-->>User: Redirect to Identity Provider Login page
+    User->>Auth: Authenticate credentials & MFA
+    Auth-->>User: Issue auth authorization code
+    User->>UI: Submit code to redirect URI
+    UI->>Auth: Exchange code for JWT tokens
+    Auth-->>UI: Return Access Token & Refresh Token
+    UI-->>User: Write JWT to HTTP-only secure cookie
+    
+    User->>UI: Execute Query / Analyze meeting
+    UI->>Backend: Forward request with Bearer JWT
+    Note over Backend: Validate token signature & claims
+    Backend-->>UI: Authorize execution & return result
+    UI-->>User: Update frontend dashboard state
 ```
 
 ---
 
-## Icon-based feature grid
+### 6. Continuous Integration & Deployment Pipeline
+Illustrates the automated testing, building, scanning, and container promotion cycle.
 
-<div align="center">
-  <table><tr>
-    <td align="center" width="200">
-      <img src="https://via.placeholder.com/72.svg?text=ASR" alt="ASR"><br/>
-      <strong>Accurate ASR</strong><br/>Speaker & noise-aware
-    </td>
-    <td align="center" width="200">
-      <img src="https://via.placeholder.com/72.svg?text=Search" alt="Search"><br/>
-      <strong>Semantic Search</strong><br/>Embeddings + timestamps
-    </td>
-    <td align="center" width="200">
-      <img src="https://via.placeholder.com/72.svg?text=Summ" alt="Summ"><br/>
-      <strong>Summarization</strong><br/>Source-cited summaries
-    </td>
-  </tr></table>
-</div>
+```mermaid
+graph TD
+    classDef task fill:#111118,stroke:#2a2a3a,color:#e8e8f0,font-family:'JetBrains Mono';
+    classDef check fill:#06b6d4,stroke:#06b6d4,color:#0a0a0f,font-family:'JetBrains Mono';
+    classDef deploy fill:#7c3aed,stroke:#9f67ff,color:#ffffff,font-family:'JetBrains Mono';
+
+    A[Developer Git Push / PR] --> B(GitHub Actions Triggered)
+    
+    subgraph Validate [Validation Stage]
+        B --> C{Run Flake8 / Black}
+        C -->|Format errors| D[Fail Build Workflow]
+        C -->|Lint passing| E[Execute pytest suite]
+        E -->|Test failures| F[Fail Build Workflow]
+    end
+    
+    subgraph Build [Build Stage]
+        E -->|Success| G[Compile Docker Image]
+        G --> H[Run Trivy Security Scan]
+        H -->|Critical Vuln found| I[Fail Build Workflow]
+        H -->|Secure| J[Push Image to Container Registry]
+    end
+    
+    subgraph Release [CD Rollout Stage]
+        J --> K[Update Helm Manifests]
+        K --> L[K8s Rolling Update Rollout]
+        L --> M[Run HTTP Readiness Probe]
+        M -->|Healthy| N[Deploy Promoted & Successful]
+    end
+
+    class A,B,D,F,I task;
+    class C,E,H check;
+    class G,J,K,L,M,N deploy;
+```
 
 ---
 
-## API lifecycle (sequence)
+### 7. RAG API Request-Response Lifecycle
+Highlights the interaction flow during a user RAG query chat turn.
+
 ```mermaid
 sequenceDiagram
-  participant Client
-  participant API
-  participant Retriever
-  participant VectorDB
-  Client->>API: POST /query {q}
-  API->>Retriever: embed(q)
-  Retriever->>VectorDB: top_k
-  VectorDB-->>Retriever: hits
-  Retriever->>API: ranked
-  API-->>Client: JSON + URLs + timestamps
+    autonumber
+    actor Client as Streamlit UI / CLI chat loop
+    participant RE as RAG Engine (LangChain)
+    participant VS as Vector Store (Chroma)
+    participant Groq as Groq Inference Cloud
+
+    Client->>RE: ask_question(rag_chain, question)
+    RE->>RE: Initialize HuggingFace embeddings
+    RE->>VS: similarity_search(question, k=4)
+    Note over VS: Run Cosine similarity calculation
+    VS-->>RE: Return top-4 source document chunks
+    RE->>RE: format_docs(docs) -> Assemble context string
+    RE->>RE: Populate template (system prompt + context + question)
+    RE->>Groq: ChatGroq.invoke(llama-3.1-8b-instant)
+    Note over Groq: LPU acceleration processing (temp=0.3)
+    Groq-->>RE: Plain text answer output
+    RE-->>Client: Parsed string answer response
 ```
 
 ---
 
-## Roadmap (Gantt)
+### 8. 6-Month Release Roadmap
+Tracks milestone achievements and feature planning for the AI Video Assistant.
+
 ```mermaid
 gantt
-  dateFormat  YYYY-MM-DD
-  title Roadmap - 6 months
-  section Core
-  Media ingest pipeline :done, des1, 2026-04-01, 20d
-  ASR scaling :active, des2, 2026-05-01, 40d
-  section Features
-  Summarizer v1 :des3, 2026-06-01, 20d
-  Timestamped QA :des4, 2026-06-25, 30d
-  section Ops
-  Git LFS migration :des5, 2026-05-21, 7d
-  K8s deployment :des6, 2026-07-01, 30d
+    title AI Video Assistant — 6-Month Roadmap
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %Y
+    
+    section Core Infrastructure
+    Offline Audio Preprocessing Pipeline      :done, a1, 2026-04-01, 2026-04-20
+    Whisper Local Transcription Module       :done, a2, 2026-04-20, 2026-05-05
+    Multi-Format Video Conversion            :done, a3, 2026-05-01, 2026-05-15
+    WhisperX Integration (Word Alignment)    :active, a4, 2026-05-16, 20d
+
+    section AI & Search Engines
+    Chroma Vector Store & Embedding Bridge   :done, b1, 2026-05-01, 2026-05-12
+    LangChain LCEL QA RAG Pipeline           :done, b2, 2026-05-10, 2026-05-20
+    MapReduce Text Summarization Chains       :active, b3, 2026-05-18, 15d
+    Multi-lingual Hinglish ASR & Translation  :b4, 2026-06-01, 25d
+
+    section UX & Frontend UI
+    Streamlit Cyber-Dark Theme Layout        :done, c1, 2026-05-12, 2026-05-19
+    Live Step-by-Step Progress Pipeline Bar  :done, c2, 2026-05-18, 2026-05-21
+    Exporting PDF Summaries / Decisions       :c3, 2026-06-15, 18d
+    Interactive React-based Dashboard        :c4, 2026-07-10, 30d
+
+    section Ops & Deployment
+    Git LFS Asset Migration                  :active, d1, 2026-05-21, 7d
+    Containerized Build & Docker Setup       :d2, 2026-06-10, 10d
+    Kubernetes Helm Charts & Orchestration   :d3, 2026-06-25, 20d
 ```
 
 ---
 
-## Folder tree
-```
-.
-├── app.py                 # Streamlit demo
-├── main.py                # CLI / runner
-├── Requirements.txt
-├── core/
-│   ├── extractor.py
-│   ├── transcriber.py
-│   ├── chunker.py
-│   ├── summarizer.py
-│   └── vector_store.py
-├── utils/
-│   └── audio_processor.py
-├── assets/
-│   ├── gifs/
-│   └── svgs/
-├── downloades/            # ignored (local media)
-├── vector_db/             # ignored (local index)
-└── README.md
-```
+## 📂 Project Repository Tree
 
----
-
-## Installation & Quickstart
-
-```bash
-python -m venv .venv
-.venv\\Scripts\\activate   # Windows
-source .venv/bin/activate  # macOS / Linux
-pip install -r Requirements.txt
-streamlit run app.py
-```
-
-Environment (example):
-```
-OPENAI_API_KEY=sk-...
-VECTOR_DB_PATH=./vector_db
-DATABASE_URL=postgres://user:pass@localhost:5432/db
-S3_BUCKET=ai-video-assets
-```
-
----
-
-## CI/CD pipeline (Mermaid)
-```mermaid
-flowchart TD
-  Commit --> GitHubActions[GitHub Actions]
-  GitHubActions --> Tests[Run tests & linters]
-  Tests --> Build[Build container]
-  Build --> Push[Push to registry]
-  Push --> Deploy[Deploy to cluster]
-```
-
----
-
-## Security & Privacy
-
-- JWT-based auth with short TTL and role checks
-- TLS everywhere; DB encryption at rest
-- Media stored in object storage with signed URLs
-
----
-
-## Contributing
-
-Please read `CONTRIBUTING.md` and open an issue first. Use feature branches (`feature/*`) and PRs against `develop`.
-
----
-
-<div align="center" style="margin-top:28px">
-  <small>Made with engineering care • Replace GIF placeholders in <code>assets/gifs/</code> • © 2026</small>
-</div>
-
----
-
-## Live Demo
-
-<details>
-<summary>Demo GIF & Screenshots</summary>
-
-- GIF Demo placeholder — motion: user uploads video → automatic transcription progress bar → semantic search returning clips → summarized notes panel opening.
-  ![Demo GIF Placeholder](https://via.placeholder.com/900x400.gif?text=Demo+Flow+-+upload%2C+transcribe%2C+search%2C+summarize)
-
-- Screenshot Grid (3-up)
-  <p align="center">
-    <img src="https://via.placeholder.com/300x180.png?text=Upload+UI" alt="Upload UI" width="300" /> &nbsp;
-    <img src="https://via.placeholder.com/300x180.png?text=Transcript+Editor" alt="Transcript Editor" width="300" /> &nbsp;
-    <img src="https://via.placeholder.com/300x180.png?text=Search+Results" alt="Search Results" width="300" />
-  </p>
-
-Key flows visualized:
-- Ingest → Transcribe → Chunk → Embed → Store → Query → Summarize
-- Live playback + timestamped highlights for search hits
-
-</details>
-
----
-
-## Problem Statement
-
-Why this exists:
-- Audio/video knowledge is siloed and hard to search.
-- Manual note-taking is slow and lossy.
-- Teams need precise, timestamped answers from media.
-
-Mermaid: "Current broken system" (high level)
-```mermaid
-flowchart LR
-  A[Users] --> B[Manual Search in Videos]
-  B --> C[Watch Full Video]
-  C --> D[Manual Notes]
-  D --> E[Knowledge Scattered]
-  style B fill:#ffdddd,stroke:#ff3333
-  style C fill:#ffe6cc,stroke:#ff8800
-  style E fill:#f3f3f3,stroke:#999
-```
-
-Data flow visualization (current pain points):
-```mermaid
-graph TD
-  U[User Query] -->|search| S[Filesystem Search]
-  S -->|no timestamps| F[Full Playback]
-  F --> N[Manual Extraction]
-  N --> K[Local Notes]
-  classDef pain fill:#ffdddd,stroke:#cc0000;
-  class S,F pain;
-```
-
----
-
-## Solution Overview
-
-Concise description:
-- End-to-end AV ingestion pipeline that produces searchable embeddings and human-readable summaries.
-- Precise timestamp mapping for result snippets and video playback.
-- Pluggable modules for transcription, embedding, and storage.
-
-System-level architecture (Mermaid)
-```mermaid
-flowchart LR
-  subgraph Ingest
-    U[User Upload] --> I[Uploader]
-    I --> P[Preprocessor]
-  end
-
-  subgraph Processing
-    P --> T[Transcription Service]
-    T --> C[Chunker]
-    C --> E[Embedding Service]
-    E --> VS[Vector Store]
-  end
-
-  subgraph Query
-    Q[User Query] --> R[Retriever]
-    R --> L[Re-ranker]
-    L --> S[Summarizer]
-    S --> UI[UI / Playback]
-  end
-
-  VS --> R
-  E --> VS
-  S --> UI
-```
-
-Component interaction flow:
-- Uploader -> Preprocessor (extract audio) -> Transcription -> Chunking -> Embedding -> Vector DB -> Retriever -> Summarizer -> UI
-
-Modular breakdown:
-- Ingest: uploader, media extractor
-- Core: transcriber, chunker, embedder
-- Storage: Chroma vector DB + metadata store
-- Interface: Streamlit (or React) UI + playback integration
-- Ops: Docker, CI, Terraform/K8s manifests
-
----
-
-## System Architecture (Detailed)
-
-### Frontend architecture
-```mermaid
-flowchart TD
-  UI[UI (Streamlit/React)]
-  UI --> API[API Gateway]
-  API --> Auth[Auth Service]
-  API --> Backend[Backend API]
-  Backend --> Vector[Vector DB]
-  Backend --> Meta[Metadata DB]
-```
-
-### Backend architecture
-```mermaid
-sequenceDiagram
-  participant UI
-  participant API
-  participant Transcribe
-  participant Embed
-  participant VectorDB
-  UI->>API: POST /upload (file)
-  API->>Transcribe: start job
-  Transcribe->>Embed: send chunks
-  Embed->>VectorDB: index embeddings
-  VectorDB-->>API: ack
-  API-->>UI: job created
-```
-
-### Database schema (ER)
-```mermaid
-erDiagram
-  USERS {
-    string id PK
-    string name
-    string email
-  }
-  MEDIA {
-    string id PK
-    string title
-    datetime uploaded_at
-  }
-  TRANSCRIPTS {
-    string id PK
-    string media_id FK
-    text text
-    int start_ms
-    int end_ms
-  }
-  EMBEDDINGS {
-    string id PK
-    string transcript_id FK
-    float[] vector
-  }
-  USERS ||--o{ MEDIA : owns
-  MEDIA ||--o{ TRANSCRIPTS : contains
-  TRANSCRIPTS ||--o{ EMBEDDINGS : has
-```
-
-### API flow
-```mermaid
-sequenceDiagram
-  participant Client
-  participant API
-  participant Worker
-  participant VectorDB
-  Client->>API: POST /query {q}
-  API->>Worker: search(q)
-  Worker->>VectorDB: top_k(q)
-  VectorDB-->>Worker: results
-  Worker->>API: ranked results
-  API-->>Client: JSON results
-```
-
-### Authentication flow
-```mermaid
-sequenceDiagram
-  participant Browser
-  participant Auth
-  participant API
-  Browser->>Auth: /login (OAuth)
-  Auth->>Browser: JWT
-  Browser->>API: Authorization: Bearer JWT
-  API->>Auth: validate token
-```
-
-### Deployment / Cloud diagram
-```mermaid
-flowchart LR
-  subgraph Cloud
-    LB[Load Balancer]
-    LB --> Web[Web App (Autoscaled)]
-    LB --> API[API (Autoscaled)]
-    API --> Workers[Background Workers (Queue)]
-    Workers --> VectorDB[(Managed Vector DB) ]
-    Workers --> Blob[(Object Storage)]
-  end
-  Developer --> GitHub
-  GitHub -->|CI/CD| Registry[Container Registry] -->|Deploy| Cloud
-```
-
----
-
-## Core Features
-
-- Feature grid
-  - Ingest & Transcribe
-    - Summary: High-accuracy ASR with speaker labels support
-    - Mini diagram:
-      ```mermaid
-      flowchart LR
-        File --> Extract --> ASR --> Transcript
-      ```
-    - Screenshot: placeholder
-
-  - Semantic Search
-    - Summary: Dense retrieval with embeddings + timestamp mapping
-    - Mini diagram:
-      ```mermaid
-      flowchart LR
-        Query --> Embed --> VectorDB --> Snippets
-      ```
-
-  - Summarization & QA
-    - Summary: Multi-shot summarizer with source citations (timestamps)
-    - Mini diagram:
-      ```mermaid
-      sequenceDiagram
-        User->>System: Summarize(results)
-        System->>LM: summarize with context
-        LM-->>System: summary (with timestamps)
-      ```
-
-  - Playback with Highlights
-    - Summary: Click-to-play from result timestamp
-    - Mini diagram:
-      ```mermaid
-      flowchart LR
-        ResultClick --> Player[start@timestamp]
-      ```
-
----
-
-## Tech Stack Visualization
-
-Layered stack (top-down)
-```mermaid
-flowchart TB
-  subgraph UI
-    A[Streamlit / React]
-  end
-  subgraph API
-    B[FastAPI / Flask]
-    B --> C[Workers (RQ / Celery)]
-  end
-  subgraph Services
-    D[ASR Model (Whisper/Local/Batched)]
-    E[Embedding (OpenAI/HuggingFace)]
-    F[Vector DB (Chroma / Milvus)]
-    G[Metadata DB (Postgres)]
-  end
-  subgraph Infra
-    H[Docker / K8s]
-    I[Object Storage (S3)]
-    J[CI/CD (GitHub Actions)]
-    K[Monitoring (Prometheus + Grafana)]
-  end
-  A --> B --> C --> D
-  C --> E --> F
-  B --> G
-  H --> I
-```
-
-Tools categorized:
-- Frontend: Streamlit, React, TailwindCSS, TypeScript
-- Backend: FastAPI, Celery/RQ, Python 3.11
-- AI/ML: Whisper/WhisperX, HuggingFace Transformers, OpenAI embeddings (optional)
-- DevOps: Docker, Kubernetes, GitHub Actions, Terraform
-- Infra: AWS/GCP, S3, RDS/Postgres, Managed Vector DB or self-hosted Chroma
-
----
-
-## Folder Structure
+Below is the directory architecture detailing core pipeline components, utilities, and static assets.
 
 ```
 .
-├── app.py
-├── main.py
-├── Requirements.txt
+├── app.py                 # Streamlit Cyber-Dark Dashboard entrypoint
+├── main.py                # Command-line CLI pipeline runner & interactive chat
+├── test.py                # Pipeline integration verification script
+├── Requirements.txt       # Project python dependencies
+├── .env                   # Configuration file (environment keys)
 ├── core/
-│   ├── extractor.py
-│   ├── transcriber.py
-│   ├── summarizer.py
-│   ├── rag_engine.py
-│   └── vector_store.py
+│   ├── extractor.py       # Groq-based action items, decisions & questions parser
+│   ├── rag_engine.py      # LangChain LCEL RAG chain pipeline logic
+│   ├── summarizer.py      # MapReduce summarizer & title generator
+│   ├── transcriber.py     # Local Whisper model manager & transcriber
+│   └── vector_store.py    # HuggingFace embedding manager & Chroma loader
 ├── utils/
-│   └── audio_processor.py
-├── downloades/
-├── vector_db/
-└── README.md
+│   └── audio_processor.py # YouTube downloader (yt-dlp) & format converter (pydub)
+└── assets/
+    └── hero_banner.png    # Cinematic high-fidelity project banner
 ```
 
-Brief:
-- `core/` — pipeline components and business logic
-- `utils/` — helpers and preprocessing
-- `vector_db/` — local vector DB artifacts (ignored for repo)
-- `downloades/` — local media for testing (ignored)
-- top-level apps: `app.py` (streamlit demo), `main.py` (CLI/runner)
+<!-- Section Wave Divider -->
+<p align="center" style="margin-top: 40px; margin-bottom: 40px;">
+  <svg width="100%" height="60" viewBox="0 0 1200 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0 20C300 -10 600 50 900 20C1050 5 1150 0 1200 10V60H0V20Z" fill="url(#waveGrad)" opacity="0.15"/>
+    <path d="M0 35C300 10 600 60 900 35C1050 20 1150 15 1200 25V60H0V35Z" fill="url(#waveGrad)" opacity="0.35"/>
+    <path d="M0 50C300 25 600 70 900 50C1050 35 1150 30 1200 40V60H0V50Z" fill="url(#waveGrad)"/>
+  </svg>
+</p>
 
 ---
 
-## Installation & Setup
+## ⚙️ Installation & Setup
 
-Quick start (Linux/macOS/Windows WSL)
+### 1. System Requirements & External Binaries
+Because the system converts media formats using `pydub` and downloads streams, you must install **FFmpeg** on your local machine:
+- **macOS**: `brew install ffmpeg`
+- **Linux**: `sudo apt-get install ffmpeg`
+- **Windows**: Download binaries via [Gyan.dev](https://www.gyan.dev/ffmpeg/builds/) and append to your system PATH.
+
+### 2. Environment Variables Configuration
+Create a `.env` file in the root directory to populate required service keys:
+
+| Parameter | Default | Purpose |
+| :--- | :--- | :--- |
+| `GROQ_API_KEY` | *Required* | API key for high-speed Llama-3.1 summaries and RAG chat. |
+| `WHISPER_MODEL` | `base` | Model tier for local transcribing (`tiny`, `base`, `small`, `medium`, `large`). |
+| `OPENAI_API_KEY` | *Optional* | Fallback embeddings provider API key. |
+
+*Sample `.env` template:*
+```ini
+GROQ_API_KEY=gsk_your_api_key_here
+WHISPER_MODEL=base
+```
+
+### 3. Installation Steps
+Clone the project, set up a virtual environment, and install dependencies:
 ```bash
+# Clone the repository
+git clone https://github.com/Ifrah27/AI-Video-Assistant.git
+cd AI-Video-Assistant
+
+# Create virtual environment
 python -m venv .venv
-source .venv/bin/activate   # or .venv\\Scripts\\activate on Windows
+
+# Activate virtual environment
+# On Windows PowerShell:
+.venv\Scripts\Activate.ps1
+# On Linux / macOS:
+source .venv/bin/activate
+
+# Install package dependencies
 pip install -r Requirements.txt
 ```
 
-Environment variables (table):
+---
 
-| Variable | Example | Description |
-|---|---:|---|
-| `OPENAI_API_KEY` | sk-xxxx | Optional: embeddings provider |
-| `VECTOR_DB_PATH` | ./vector_db/chroma.sqlite3 | Vector DB path |
-| `S3_BUCKET` | my-bucket | Object storage for uploaded media |
-| `DATABASE_URL` | postgres://... | Metadata DB connection |
+## 🎮 Running the Application
 
-Sample `.env`:
-```
-OPENAI_API_KEY=sk-...
-VECTOR_DB_PATH=./vector_db
-DATABASE_URL=postgres://user:pass@localhost:5432/db
-S3_BUCKET=ai-video-assistant-dev
-```
-
-Run locally:
-```
+### Option A: Streamlit Cyber-Dark UI Dashboard (Recommended)
+Launch the responsive UI to configure pipeline targets visually:
+```bash
 streamlit run app.py
 ```
+*Navigate to `http://localhost:8501` to use the dashboard.*
 
-Production (container):
-- Build:
+### Option B: Terminal CLI Interface
+Run the end-to-end pipeline and query the RAG chain directly from your terminal shell:
+```bash
+python main.py
 ```
-docker build -t ai-video-assistant:latest .
-```
-- Deploy via Kubernetes manifest or GitHub Actions to your cloud.
+*Prompts will request your YouTube URL/filepath and output summarized markdown lists.*
 
 ---
 
-## API Documentation
+## 📡 API Specification Reference
 
-Endpoints summary:
+For web clients looking to interface with the core Python service layer:
 
-| Method | Path | Description |
-|---:|---|---|
-| POST | /upload | Uploads media, returns job id |
-| GET | /status/{job_id} | Job status |
-| POST | /query | Semantic query |
-| POST | /summarize | Generate summary from results |
-
-Sample request/response
-```http
-POST /api/query
-Content-Type: application/json
-
+### Ingest & Process Media
+`POST /api/process`
+- **Request Headers**: `Content-Type: application/json`
+- **Request Body**:
+```json
 {
-  "q": "How to train the model?",
-  "k": 5
+  "source": "https://www.youtube.com/watch?v=example",
+  "language": "english"
+}
+```
+- **Success Response (202 Accepted)**:
+```json
+{
+  "job_id": "job_98fa2210a4",
+  "status": "processing",
+  "steps": {
+    "audio": "active",
+    "transcript": "pending",
+    "indexing": "pending"
+  }
 }
 ```
 
-Response:
+### Submit Query to Session RAG
+`POST /api/query`
+- **Request Headers**: `Content-Type: application/json`, `Authorization: Bearer <JWT_TOKEN>`
+- **Request Body**:
 ```json
 {
-  "query":"How to train the model?",
-  "results":[
-    {"id":"r1","score":0.92,"start_ms":342100,"end_ms":347200,"text":"...","source_media":"m1"}
+  "job_id": "job_98fa2210a4",
+  "question": "What key deadlines were established during the sync?",
+  "k": 4
+}
+```
+- **Success Response (200 OK)**:
+```json
+{
+  "answer": "The team agreed to deploy the beta version on Friday, June 12th. Speaker Sarah will finalize the schema design by Wednesday.",
+  "sources": [
+    {
+      "chunk_index": 2,
+      "text_snippet": "...deploy the beta version on Friday, June 12th..."
+    }
   ]
 }
 ```
 
-Sequence for a query:
-```mermaid
-sequenceDiagram
-  participant Client
-  participant API
-  participant Retriever
-  participant VectorDB
-  Client->>API: POST /query
-  API->>Retriever: embed(query)
-  Retriever->>VectorDB: top_k
-  VectorDB-->>Retriever: hits
-  Retriever->>API: ranked hits
-  API-->>Client: JSON hits
+---
+
+## 🔒 Security & Privacy Practices
+
+- **Local Processing First**: High-risk media files are processed locally. Whisper speech-to-text models compile audio files on your local CPU/GPU, ensuring zero voice data leakages to third-party APIs.
+- **Short-Lived Keys**: Groq API queries use brief payloads that are not retained or utilized for public model training.
+- **Git Protections**: The `.gitignore` prevents local model caches, temporary downloaded audio chunks, and Chroma vector database SQLite binary tables from being pushed to source control.
+
+---
+
+## 🤝 Contributing Workflow
+
+We welcome contributions! Please follow this branch hierarchy:
+- **`main`**: Production release branch (protected).
+- **`develop`**: Standard integration branch where features are compiled.
+- **`feature/*`**: Dedicated branches for individual changes.
+
 ```
-
----
-
-## Performance & Scalability
-
-Key metrics to target:
-- Ingest throughput: 1–3 GB/hour (batch ASR)
-- Query latency: 100–500ms for cached embeddings; 200–1500ms for full retrieval+re-ranking
-- Summarization latency: depends on LLM provider (100ms–2s)
-
-Throughput diagram:
-```mermaid
-flowchart LR
-  Ingest[Ingest Workers] -->|parallel| ASR[ASR Cluster]
-  ASR -->|batch| Embed[Embedding Pool]
-  Embed -->|bulk| VectorDB
-  VectorDB -->|low-latency| API[Frontend API]
+Developer Work ---> Fork/Branch ---> PR to develop ---> CI Lint/Test Verify ---> Approval ---> Merge
 ```
-
-Scaling approach:
-- Autoscale worker pods based on queue depth
-- Use model batching for ASR/embedding to increase throughput
-- Cache embeddings and warm frequently accessed shards
+*Please open an issue first to discuss large refactoring tasks.*
 
 ---
 
-## Security Architecture
-
-Authentication & Roles:
-```mermaid
-sequenceDiagram
-  participant User
-  participant Auth
-  participant API
-  participant DB
-  User->>Auth: OAuth
-  Auth-->>User: access_token
-  User->>API: Bearer token
-  API->>DB: check role/permissions
-```
-
-Notes:
-- Use JWT with short TTL and refresh tokens
-- Encrypt sensitive data at rest (DB-level encryption) and in transit (TLS)
-- Role-based access for admin vs. regular users
-- Audit logs for ingestion and retrieval
-
----
-
-## Roadmap
-
-```mermaid
-gantt
-  title Roadmap
-  dateFormat  YYYY-MM-DD
-  section Core
-  Ingest pipeline :done, a1, 2026-04-01, 30d
-  ASR scaling       :active, a2, 2026-05-01, 45d
-  section Features
-  Summarizer       :a3, 2026-06-15, 30d
-  QA mode          :a4, 2026-07-15, 30d
-  section Ops
-  LFS migration    :a5, 2026-05-21, 7d
-  K8s deployment   :a6, 2026-07-01, 45d
-```
-
----
-
-## Contributing
-
-Contribution workflow:
-```mermaid
-flowchart LR
-  Developer --> Fork --> Branch[feature/*] --> PR --> CI --> Review --> Merge --> Release
-```
-
-Branch strategy:
-- `main` — protected, production-ready
-- `develop` — integration branch
-- `feature/*` — feature branches
-- `hotfix/*` — emergency fixes
-
-Guidelines:
-- Open issues for feature requests
-- One PR per logical change; link issue
-- Tests required for core features; CI runs lint, unit tests, type checks
-
----
-
-## License & Credits
-
-- License: MIT (or choose your license)
-- Credits: List contributors and third-party libraries in `NOTICE.md`.
-- Logo & illustrations: placeholders — replace with original assets.
-
----
-
-## Assets & Placeholders
-
-- Logo SVG placeholder: replace `https://via.placeholder.com/160x160.svg?text=LOGO`
-- Animated banner GIF: replace with `assets/banner.gif` — should demonstrate upload → ASR → search → summary
-- Demo GIFs: place in `assets/gifs/` with short captions
-- Diagrams: all Mermaid blocks are live and editable in repo
-
----
-
-## Final notes
-
-- Replace all `<INSERT ...>` placeholders with project-specific copy.
-- Move large media into external object storage or Git LFS — `.gitignore` already excludes `downloades/` and local DB artifacts.
-- Consider adding a `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and GitHub Actions for CI.
-
----
-
-If you'd like, I can:
-- Save this `README.md` into the repository and commit it.
-- Add demo GIFs and SVG placeholders into `assets/`.
-- Configure GitHub Actions to render Mermaid diagrams in previews.
-
-Which follow-up should I do next?
+<p align="center" style="color: #7070a0; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 40px;">
+  Made with 💜 for engineers and teams • © 2026 AI Video Assistant Contributors • License: MIT
+</p>
