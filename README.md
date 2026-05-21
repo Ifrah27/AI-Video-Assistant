@@ -1,30 +1,343 @@
-# <INSERT PROJECT NAME>
-
-<!-- Hero: centered SVG placeholder -->
-<p align="center">
-  <!-- SVG LOGO PLACEHOLDER -->
-  <img src="https://via.placeholder.com/160x160.svg?text=LOGO" alt="Project Logo" width="160" height="160" />
-</p>
+# AI-Video-Assistant — Cinematic Knowledge from Audio & Video
 
 <p align="center">
-  <!-- Animated banner GIF placeholder (describe what it shows) -->
-  <img src="https://via.placeholder.com/900x240.gif?text=Animated+Banner+GIF" alt="Animated banner - shows pipeline: upload → transcribe → semantic search → summarization" width="900" />
+  <!-- Large animated hero banner: replace with real GIF under assets/ -->
+  <img alt="Hero banner" src="https://via.placeholder.com/1400x420.gif?text=Hero+Banner+-+Upload+%E2%86%92+Transcribe+%E2%86%92+Embed+%E2%86%92+Search" width="100%" />
 </p>
 
-<h3 align="center"><INSERT 1-LINE VALUE PROPOSITION></h3>
+<div align="center">
+  <!-- Logo placeholder (SVG) -->
+  <img src="https://via.placeholder.com/160x160.svg?text=LOGO" alt="Project logo" width="120" height="120" />
 
-<p align="center">
-  <!-- Shields.io badges -->
-  <img alt="Build" src="https://img.shields.io/badge/build-passing-brightgreen" />
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-blue" />
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-orange" />
-  <img alt="Tech" src="https://img.shields.io/badge/tech-Python%20%7C%20Streamlit%20%7C%20Chroma-blue" />
-  <img alt="Contributors" src="https://img.shields.io/badge/contributors-1-lightgrey" />
-  <img alt="Stars" src="https://img.shields.io/badge/stars-★%20Add%20yours-yellow" />
-</p>
+  <h2 style="margin-top:12px">Instantly search, quote, and summarize any video or audio</h2>
 
-Short elevator pitch:
-A production-ready, scalable assistant for extracting, transcribing, indexing, and summarizing video/audio content so teams can search and reuse audiovisual knowledge instantly.
+  <!-- Badge row -->
+  <p>
+    <img alt="build" src="https://img.shields.io/badge/build-passing-brightgreen" />
+    <img alt="version" src="https://img.shields.io/badge/version-0.1.0-blue" />
+    <img alt="license" src="https://img.shields.io/badge/license-MIT-lightgrey" />
+    <img alt="stack" src="https://img.shields.io/badge/stack-Python%20%7C%20Streamlit%20%7C%20Chroma-blue" />
+    <img alt="stars" src="https://img.shields.io/badge/stars-★%20Add%20yours-yellow" />
+  </p>
+
+  <p style="max-width:900px;margin:auto">
+    A production-grade platform that extracts machine-readable knowledge from audio and video — precise timestamping, dense semantic search, and succinct, source-cited summaries for teams and products.
+  </p>
+</div>
+
+<!-- SVG wave divider -->
+<div style="line-height:0;margin-top:18px">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" width="100%" height="60" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 C300,80 900,-40 1200,40 L1200,60 L0,60 Z" fill="#f6f7fb"></path></svg>
+</div>
+
+---
+
+<details>
+<summary style="font-size:16px;font-weight:600">Live Demo & Animated Features (click to expand)</summary>
+
+<p style="margin-top:12px">Each GIF below is a short, looped demonstration of a core user flow. Replace the placeholders with high-fidelity GIFs in <code>assets/gifs/</code>.</p>
+
+<div align="center">
+  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Upload+%E2%86%92+ASR+Progress" alt="upload demo" width="980" style="margin-bottom:12px" />
+  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Search+%E2%86%92+Timestamp+Play" alt="search demo" width="980" style="margin-bottom:12px" />
+  <img src="https://via.placeholder.com/980x300.gif?text=Demo+-+Summarize+%E2%86%92+Cite+Timestamps" alt="summarize demo" width="980" />
+</div>
+
+</details>
+
+---
+
+## Key flows — at a glance
+
+- Ingest (video/audio) → Media extraction → ASR → Chunking → Embedding → Vector index
+- Query → Dense retrieval → Re-ranking → Timestamp-aware snippet playback → Summarization with sources
+
+<!-- Section divider -->
+<svg viewBox="0 0 1200 40" preserveAspectRatio="none" width="100%" height="40"><path d="M0,20 C300,-20 900,60 1200,10 L1200,40 L0,40 Z" fill="#ffffff"></path></svg>
+
+## Problem we solve
+
+Large teams and products produce hours of video and audio that cannot be searched precisely. Existing tools surface clips poorly, lose timestamps, and provide no auditable source for summaries.
+
+```mermaid
+flowchart LR
+  A[Teams] --> B[Large Media Repositories]
+  B --> C[Manual Search / Playback]
+  C --> D[Slow Knowledge Extraction]
+  D --> E[Lost Context]
+  style C fill:#ffefef,stroke:#ff6b6b
+```
+
+---
+
+## Ultra-Concise Solution Overview
+
+We provide a pluggable pipeline: robust media ingestion, configurable ASR, chunk-aware embedding, and a vector-backed retriever plus a source-aware summarizer. Everything is observable, auditable, and deployable.
+
+```mermaid
+flowchart LR
+  User[User/UI] --> Upload[Uploader]
+  Upload --> Extract[Audio Extractor]
+  Extract --> ASR[ASR Service]
+  ASR --> Chunk[Chunker]
+  Chunk --> Embed[Embedding Service]
+  Embed --> VectorDB[(Vector DB)]
+  Queryer[Query API] --> VectorDB
+  VectorDB --> Rescorer[Re-ranker]
+  Rescorer --> Summarizer[Summarizer]
+  Summarizer --> UI[UI - Timestamps + Snippets]
+```
+
+---
+
+## Architecture (detailed)
+
+### System architecture (high level)
+```mermaid
+graph TD
+  subgraph "Ingest"
+    Uploader --> Extractor
+    Extractor --> ASR
+  end
+  subgraph "Indexing"
+    ASR --> Chunker --> Embedder --> VectorDB
+  end
+  subgraph "Query"
+    Client --> API --> Retriever --> Re-ranker --> Summarizer
+    Summarizer --> Client
+  end
+  VectorDB -.-> MetadataDB
+```
+
+### C4 container diagram
+```mermaid
+flowchart LR
+  subgraph Frontend
+    FE[Streamlit / React]
+  end
+  subgraph Backend
+    API[FastAPI]
+    Worker[Worker Pool - Celery/RQ]
+    ASR[ASR Service]
+    Embed[Embedding Service]
+    Vector[(Chroma / Milvus)]
+    Meta[(Postgres)]
+  end
+  FE --> API
+  API --> Worker
+  Worker --> ASR
+  Worker --> Embed
+  Embed --> Vector
+  API --> Vector
+  API --> Meta
+```
+
+### Sequence: upload -> index
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant API
+  participant W as Worker
+  participant ASR
+  participant E as Embed
+  participant V as VectorDB
+
+  U->>API: POST /upload (media)
+  API->>W: enqueue job
+  W->>ASR: transcribe(audio)
+  ASR-->>W: transcript
+  W->>E: embed(chunks)
+  E->>V: index(embeddings)
+  V-->>W: ack
+  W-->>API: job done
+  API-->>U: job complete
+```
+
+### ER diagram (metadata)
+```mermaid
+erDiagram
+  USERS {
+    string id PK
+    string name
+    string email
+  }
+  MEDIA {
+    string id PK
+    string title
+    datetime uploaded_at
+  }
+  TRANSCRIPTS {
+    string id PK
+    string media_id FK
+    text body
+  }
+  EMBEDDINGS {
+    string id PK
+    string transcript_id FK
+    float[] vector
+  }
+  USERS ||--o{ MEDIA : uploads
+  MEDIA ||--o{ TRANSCRIPTS : contains
+  TRANSCRIPTS ||--o{ EMBEDDINGS : stores
+```
+
+### Deployment diagram
+```mermaid
+flowchart LR
+  GitHub --> CI[GitHub Actions]
+  CI --> Registry[Container Registry]
+  Registry --> K8s[Kubernetes Cluster]
+  K8s --> LB[Load Balancer]
+  LB --> Web[Web Frontend]
+  LB --> API[API Pods]
+  API --> Workers[Worker Pods]
+  Workers --> VectorDB[(Managed Vector DB)]
+  Workers --> Blob[(S3/Azure Blob)]
+```
+
+### Auth flow
+```mermaid
+sequenceDiagram
+  participant Browser
+  participant Auth[Auth Server]
+  participant API
+  Browser->>Auth: OAuth login
+  Auth-->>Browser: JWT
+  Browser->>API: Bearer JWT
+  API->>Auth: validate
+```
+
+---
+
+## Icon-based feature grid
+
+<div align="center">
+  <table><tr>
+    <td align="center" width="200">
+      <img src="https://via.placeholder.com/72.svg?text=ASR" alt="ASR"><br/>
+      <strong>Accurate ASR</strong><br/>Speaker & noise-aware
+    </td>
+    <td align="center" width="200">
+      <img src="https://via.placeholder.com/72.svg?text=Search" alt="Search"><br/>
+      <strong>Semantic Search</strong><br/>Embeddings + timestamps
+    </td>
+    <td align="center" width="200">
+      <img src="https://via.placeholder.com/72.svg?text=Summ" alt="Summ"><br/>
+      <strong>Summarization</strong><br/>Source-cited summaries
+    </td>
+  </tr></table>
+</div>
+
+---
+
+## API lifecycle (sequence)
+```mermaid
+sequenceDiagram
+  participant Client
+  participant API
+  participant Retriever
+  participant VectorDB
+  Client->>API: POST /query {q}
+  API->>Retriever: embed(q)
+  Retriever->>VectorDB: top_k
+  VectorDB-->>Retriever: hits
+  Retriever->>API: ranked
+  API-->>Client: JSON + URLs + timestamps
+```
+
+---
+
+## Roadmap (Gantt)
+```mermaid
+gantt
+  dateFormat  YYYY-MM-DD
+  title Roadmap - 6 months
+  section Core
+  Media ingest pipeline :done, des1, 2026-04-01, 20d
+  ASR scaling :active, des2, 2026-05-01, 40d
+  section Features
+  Summarizer v1 :des3, 2026-06-01, 20d
+  Timestamped QA :des4, 2026-06-25, 30d
+  section Ops
+  Git LFS migration :des5, 2026-05-21, 7d
+  K8s deployment :des6, 2026-07-01, 30d
+```
+
+---
+
+## Folder tree
+```
+.
+├── app.py                 # Streamlit demo
+├── main.py                # CLI / runner
+├── Requirements.txt
+├── core/
+│   ├── extractor.py
+│   ├── transcriber.py
+│   ├── chunker.py
+│   ├── summarizer.py
+│   └── vector_store.py
+├── utils/
+│   └── audio_processor.py
+├── assets/
+│   ├── gifs/
+│   └── svgs/
+├── downloades/            # ignored (local media)
+├── vector_db/             # ignored (local index)
+└── README.md
+```
+
+---
+
+## Installation & Quickstart
+
+```bash
+python -m venv .venv
+.venv\\Scripts\\activate   # Windows
+source .venv/bin/activate  # macOS / Linux
+pip install -r Requirements.txt
+streamlit run app.py
+```
+
+Environment (example):
+```
+OPENAI_API_KEY=sk-...
+VECTOR_DB_PATH=./vector_db
+DATABASE_URL=postgres://user:pass@localhost:5432/db
+S3_BUCKET=ai-video-assets
+```
+
+---
+
+## CI/CD pipeline (Mermaid)
+```mermaid
+flowchart TD
+  Commit --> GitHubActions[GitHub Actions]
+  GitHubActions --> Tests[Run tests & linters]
+  Tests --> Build[Build container]
+  Build --> Push[Push to registry]
+  Push --> Deploy[Deploy to cluster]
+```
+
+---
+
+## Security & Privacy
+
+- JWT-based auth with short TTL and role checks
+- TLS everywhere; DB encryption at rest
+- Media stored in object storage with signed URLs
+
+---
+
+## Contributing
+
+Please read `CONTRIBUTING.md` and open an issue first. Use feature branches (`feature/*`) and PRs against `develop`.
+
+---
+
+<div align="center" style="margin-top:28px">
+  <small>Made with engineering care • Replace GIF placeholders in <code>assets/gifs/</code> • © 2026</small>
+</div>
 
 ---
 
