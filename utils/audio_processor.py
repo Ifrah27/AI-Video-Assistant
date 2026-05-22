@@ -25,8 +25,17 @@ def download_youtube_audio(url :str) ->str:
         "geo_bypass": True,
         # Provide common browser headers to avoid CDN 403s
         "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept-Language": "en-US,en;q=0.9",
+    },
+        "extractor_args": {
+        "youtube": {
+            "player_client": ["android", "web"]
+        }
         },
     }
     node_path = shutil.which("node")
