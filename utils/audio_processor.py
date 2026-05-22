@@ -1,8 +1,11 @@
 import yt_dlp
 import os
+import logging
+import shutil
+from pydub import AudioSegment
 
-DOWNLOAD_DIR = 'downloades'
-os.makedirs(DOWNLOAD_DIR,exist_ok = True)
+DOWNLOAD_DIR = 'downloads'
+os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 def download_youtube_audio(url :str) ->str:
     output_path = os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s")
@@ -20,11 +23,34 @@ def download_youtube_audio(url :str) ->str:
         "noplaylist": True,
         "nocheckcertificate": True,
         "geo_bypass": True,
+        # Provide common browser headers to avoid CDN 403s
+        "http_headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
     }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filename = ydl.prepare_filename(info).replace(".webm", ".wav").replace(".m4a", ".wav")
-    return filename
+    node_path = shutil.which("node")
+    if node_path:
+        ydl_opts["js_runtimes"] = {"node": {"path": node_path}}
+    # Optional: allow passing cookies for age-restricted / signed-in content
+    cookies_from_browser = os.getenv("YTDLP_COOKIES_FROM_BROWSER")
+    cookiefile = os.getenv("YTDLP_COOKIEFILE")
+    if cookiefile:
+        ydl_opts["cookiefile"] = cookiefile
+    elif cookies_from_browser:
+        # If user sets YTDLP_COOKIES_FROM_BROWSER=1, default to chrome
+        if cookies_from_browser == "1":
+            ydl_opts["cookiesfrombrowser"] = "chrome"
+        else:
+            ydl_opts["cookiesfrombrowser"] = cookies_from_browser
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            filename = ydl.prepare_filename(info).replace(".webm", ".wav").replace(".m4a", ".wav")
+        return filename
+    except Exception as e:
+        logging.exception("yt-dlp failed to download URL: %s", url)
+        raise
 
 
 
