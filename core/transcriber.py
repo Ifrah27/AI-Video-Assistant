@@ -1,7 +1,6 @@
 import whisper
 import os
-import requests
-from pydub import AudioSegment
+
 
 
 
