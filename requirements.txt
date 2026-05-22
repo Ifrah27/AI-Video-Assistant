@@ -4,6 +4,8 @@ python-dotenv
 # ── Audio / Video acquisition ─────────────────────────────────────────────────
 yt-dlp>=2025.5.22                  # Download audio from YouTube URLs
 ffmpeg-python>=0.2.0              # FFmpeg bindings (FFmpeg binary must be installed separately)
+pydub
+pyaudioop
 
 # ── Speech-to-Text (local Whisper) ────────────────────────────────────────────
 openai-whisper>=20231117          # OpenAI Whisper (runs locally)
