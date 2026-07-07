@@ -654,5 +654,5 @@ Developer Work ---> Fork/Branch ---> PR to develop ---> CI Lint/Test Verify --->
 ---
 
 <p align="center" style="color: #7070a0; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 40px;">
-  Made with 💜 for engineers and teams • © 2026 AI Video Assistant Contributors • License: MIT
+  Made with 💜 for engineers • © 2026 AI Video Assistant • License: MIT
 </p>
